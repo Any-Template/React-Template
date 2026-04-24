@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES  –  injected by ThemeInjector from the active preset
+   These are the source of truth for all colors — Tailwind reads these vars.
+   Do NOT edit manually; they are overwritten on every theme switch.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* Primary */
+    --color-primary:    #7c3aed;
+    --color-primary-fg: #ffffff;
+    --color-primary-50:  #f5f3ff;
+    --color-primary-100: #ede9fe;
+    --color-primary-200: #ddd6fe;
+    --color-primary-300: #c4b5fd;
+    --color-primary-400: #a78bfa;
+    --color-primary-500: #8b5cf6;
+    --color-primary-600: #7c3aed;
+    --color-primary-700: #6d28d9;
+    --color-primary-800: #5b21b6;
+    --color-primary-900: #4c1d95;
+    --color-primary-950: #2e1065;
+
+    /* Secondary */
+    --color-secondary:    #64748b;
+    --color-secondary-fg: #ffffff;
+
+    /* Accent */
+    --color-accent:    #10b981;
+    --color-accent-fg: #ffffff;
+
+    /* Surfaces */
+    --color-background:  #ffffff;
+    --color-surface:     #f8fafc;
+    --color-surface-alt: #f1f5f9;
+
+    /* Borders */
+    --color-border:       #e2e8f0;
+    --color-border-strong:#cbd5e1;
+
+    /* Text */
+    --color-text:         #0f172a;
+    --color-text-secondary: #475569;
+    --color-text-muted:   #94a3b8;
+    --color-text-inverse: #ffffff;
+
+    /* Status */
+    --color-success:    #10b981;
+    --color-success-fg: #ffffff;
+    --color-warning:    #f59e0b;
+    --color-warning-fg: #ffffff;
+    --color-error:      #ef4444;
+    --color-error-fg:   #ffffff;
+    --color-info:       #3b82f6;
+    --color-info-fg:    #ffffff;
+
+    /* Shape */
+    --radius:      0.5rem;
+    --radius-sm:   0.25rem;
+    --radius-lg:   0.75rem;
+    --radius-xl:   1rem;
+    --radius-full: 9999px;
+
+    /* Font */
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Navbar */
+    --navbar-height: 4rem;
+
+    /* Transition speed multiplier (set by animation speed config) */
+    --speed: 1;
+  }
+
+  /* Dark mode overrides are injected dynamically by ThemeInjector */
+
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: var(--color-surface); }
+  ::-webkit-scrollbar-thumb  { background: var(--color-border-strong); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  }
+}
+
+/* ─── Utility classes driven by CSS vars ─────────────────────────────────── */
+
+@layer utilities {
+  .glass {
+    background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 40%, transparent);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-brand {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface) 25%,
+      var(--color-surface-alt) 50%,
+      var(--color-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Page transition wrapper */
+  .page-enter  { animation: pageIn 0.25s ease both; }
+  .page-exit   { animation: pageOut 0.2s ease both; }
+
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pageOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+}
+
+/* ─── Neon preset extras ────────────────────────────────────────────────── */
+
+[data-preset="neon"] body {
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(74, 222, 128, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(232, 121, 249, 0.05) 0%, transparent 50%);
+}
+
+/* ─── Glass preset extras ───────────────────────────────────────────────── */
+
+[data-preset="glass"] body {
+  background-image:
+    radial-gradient(ellipse at top left,    rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(217, 70, 239, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* ─── Typography scale variants ─────────────────────────────────────────── */
+
+[data-typography="compact"] { line-height: 1.4; letter-spacing: -0.01em; }
+[data-typography="loose"]   { line-height: 1.8; letter-spacing:  0.01em; }
